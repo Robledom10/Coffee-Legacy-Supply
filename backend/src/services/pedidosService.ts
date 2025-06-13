@@ -1,15 +1,25 @@
 import { db } from '../db';
 import { Pedido } from '../models/pedido';
+import { obtenerDetallesPedido } from './detallePedidoService';
+
 
 export async function obtenerPedidos(): Promise<Pedido[]> {
   const [rows] = await db.query('SELECT * FROM pedidos');
   return rows as Pedido[];
 }
 
-export async function obtenerPedidoPorId(id: number): Promise<Pedido | null> {
+export async function obtenerPedidoPorId(id: number): Promise<any> {
   const [rows] = await db.query('SELECT * FROM pedidos WHERE id = ?', [id]);
-  return (rows as Pedido[])[0] || null;
+  const pedido = (rows as any[])[0];
+  if (!pedido) return null;
+
+  // Traer detalles del pedido
+  const detalles = await obtenerDetallesPedido(id);
+  pedido.detalles = detalles;
+
+  return pedido;
 }
+
 
 export async function crearPedido(pedido: Pedido): Promise<number> {
   const { comprador_id, estado = 'pendiente', total = 0 } = pedido;
