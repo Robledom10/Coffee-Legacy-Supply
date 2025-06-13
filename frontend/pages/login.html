@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/login.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"
+      crossorigin="anonymous"></script>
+    <title>Registro Café</title>
+    <script>
+    function togglePassword() {
+      const input = document.getElementById("password");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-side"></div>
+
+      <div class="right-side">
+        <div class="form-container">
+          <h2>Registrarse!</h2>
+          <form>
+            <div class="input-group">
+              <div class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="nombre" placeholder="Tu nombre" required>
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="email" placeholder="correo@ejemplo.com"
+                  required>
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" placeholder="********"
+                  required>
+                <i class="fa-solid fa-eye password-toggle"
+                  onclick="togglePassword()"></i>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="social-login">
+              <i class="fab fa-google"></i>
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <button type="submit">Confirmar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
