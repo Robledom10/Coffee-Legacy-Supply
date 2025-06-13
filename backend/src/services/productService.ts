@@ -1,9 +1,19 @@
 import { db } from '../db';
 import { Producto } from '../models/producto';
+import { obtenerPromedioPorProducto } from './resenaService';
+
 
 export async function obtenerProductos(): Promise<Producto[]> {
   const [rows] = await db.query('SELECT * FROM productos');
-  return rows as Producto[];
+  const productos = rows as any[];
+
+  for (const producto of productos) {
+    const { promedio, total } = await obtenerPromedioPorProducto(producto.id);
+    producto.promedio_calificacion = promedio;
+    producto.total_resenas = total;
+  }
+
+  return productos;
 }
 
 export async function obtenerProductoPorId(id: number): Promise<Producto | null> {
